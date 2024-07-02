@@ -33,7 +33,7 @@ export default function Index() {
             components={{ types: { timeline: Timeline, readMore: ReadMore } }}
           />
         )}
-        <startSoknad.Form method="post" action="/action/start-soknad">
+        <startSoknad.Form method="post" action="/start-soknad/action">
           <ConfirmationPanel
             ref={missingConsentRef}
             name="confirmationPanel"

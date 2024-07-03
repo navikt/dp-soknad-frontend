@@ -5,16 +5,16 @@ import { startSoknad } from "~/models/startSoknad.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const confirmationPanel = formData.get("confirmationPanel");
+  const consentGiven = formData.get("confirmationPanel");
 
-  if (!confirmationPanel) {
-    return typedjson({ confirmed: false });
+  if (!consentGiven) {
+    return typedjson({ consentGiven });
   }
 
   const startSoknadResponse = await startSoknad(request);
 
   if (startSoknadResponse.status === "error") {
-    return typedjson({ error: startSoknadResponse.error, confirmed: true });
+    return typedjson({ error: startSoknadResponse.error, consentGiven });
   }
 
   const soknadId = startSoknadResponse.data.soknadId;
@@ -22,7 +22,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const dpSoknadCreateSoknadResponse = await dpSoknadCreateSoknad(request, soknadId);
 
   if (dpSoknadCreateSoknadResponse.status === "error") {
-    return typedjson({ error: dpSoknadCreateSoknadResponse.error, confirmed: true });
+    return typedjson({ error: dpSoknadCreateSoknadResponse.error, consentGiven: true });
   }
 
   return redirect(`/${soknadId}`);

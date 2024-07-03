@@ -1,4 +1,4 @@
-import { Button, ConfirmationPanel } from "@navikt/ds-react";
+import { Alert, Button, ConfirmationPanel } from "@navikt/ds-react";
 import { PortableText } from "@portabletext/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
@@ -7,19 +7,25 @@ import { Timeline } from "~/components/sanity-aksel-components/timeline/Timeline
 import { SoknadHeader } from "~/components/soknad-header/SoknadHeader";
 import { useSanity } from "~/hooks/useSanity";
 import { useSetFocus } from "~/hooks/useSetFocus";
+import { action } from "./start-soknad.action";
 
 export default function Index() {
-  const startSoknad = useFetcher();
+  const startSoknad = useFetcher<typeof action>();
   const [consentGiven, setConsentGiven] = useState(false);
-  const missingConsentRef = useRef<HTMLInputElement>(null);
-
+  const confirmPanelRef = useRef<HTMLInputElement>(null);
+  const startSoknadErrorRef = useRef<HTMLDivElement>(null);
   const { setFocus } = useSetFocus();
   const { getInfoPageText, getAppText } = useSanity();
   const startSideText = getInfoPageText("startside");
 
   useEffect(() => {
-    if (startSoknad.data) {
-      setFocus(missingConsentRef);
+    if (startSoknad.data && !startSoknad.data.consentGiven) {
+      setFocus(confirmPanelRef);
+    }
+
+    if (startSoknad.data && startSoknad.data.error) {
+      console.log("hit");
+      setFocus(startSoknadErrorRef);
     }
   }, [startSoknad.data, setFocus]);
 
@@ -35,7 +41,7 @@ export default function Index() {
         )}
         <startSoknad.Form method="post" action="/start-soknad/action">
           <ConfirmationPanel
-            ref={missingConsentRef}
+            ref={confirmPanelRef}
             name="confirmationPanel"
             className="mb-10"
             checked={consentGiven}
@@ -44,11 +50,17 @@ export default function Index() {
               setConsentGiven(!consentGiven);
             }}
             error={
-              !consentGiven && startSoknad.data
+              !consentGiven && startSoknad.data && !startSoknad.data.consentGiven
                 ? getAppText("start-soknad.checkbox.samtykke-innhenting-data.validering-tekst")
                 : undefined
             }
           />
+
+          {startSoknad.data && startSoknad.data.error && (
+            <Alert variant="error" className="mb-10" ref={startSoknadErrorRef}>
+              {startSoknad.data.error.statusText}
+            </Alert>
+          )}
           <Button
             variant="primary"
             size="medium"

@@ -9,7 +9,7 @@ export interface ISessionData {
 export async function getSession(req: Request): Promise<INetworkResponse<ISessionData>> {
   const devToken = getEnv("DP_SOKNAD_ORKESTRATOR_TOKEN");
 
-  if (getEnv("IS_LOCALHOST") === "true" && devToken) {
+  if (getEnv("IS_LOCALHOST") === "true" && getEnv("USE_MSW") === "false" && devToken) {
     if (expiresIn(devToken) <= 0) {
       console.log("\n ⛔️ Lokalt sessjon utløpt! Kjør: npm run generate-token på nytt.");
 

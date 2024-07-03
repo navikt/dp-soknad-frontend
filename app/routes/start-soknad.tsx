@@ -24,7 +24,6 @@ export default function Index() {
     }
 
     if (startSoknad.data && startSoknad.data.error) {
-      console.log("hit");
       setFocus(startSoknadErrorRef);
     }
   }, [startSoknad.data, setFocus]);

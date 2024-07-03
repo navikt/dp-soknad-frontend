@@ -1,5 +1,6 @@
 import { HttpResponse, bypass, http } from "msw";
 import { getEnv } from "~/utils/env.utils";
+import { getNesteSporsmalResponse } from "./responses/getNesteSporsmalResponse";
 
 export const handlers = [
   http.post(`${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/start`, () => {
@@ -8,6 +9,10 @@ export const handlers = [
 
   http.post(`${getEnv("DP_SOKNAD_URL")}/soknad`, () => {
     return new HttpResponse(null, { status: 201 });
+  }),
+
+  http.get(`${getEnv("DP_SOKNAD_ORKESTRATOR_URL")}/soknad/:soknadId/neste`, () => {
+    return HttpResponse.json(getNesteSporsmalResponse);
   }),
 
   // Bypassing mocks, use actual data instead

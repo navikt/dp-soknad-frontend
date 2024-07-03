@@ -11,7 +11,7 @@ export interface ISpørsmal {
 }
 
 export interface ISpørsmålGruppe {
-  id: string;
+  id: number;
   navn: string;
   nesteSpørsmål: ISpørsmal;
   besvarteSpørsmål: ISpørsmal[];

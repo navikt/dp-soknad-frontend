@@ -2,11 +2,16 @@ import { DatePicker, useDatepicker } from "@navikt/ds-react";
 import { ISpørsmal } from "~/types/sporsmal";
 
 export function DatoSporsmal(props: ISpørsmal) {
-  const { tekstnøkkel } = props;
+  const { tekstnøkkel, svar } = props;
 
-  const { inputProps } = useDatepicker({
-    fromDate: new Date(),
+  const { datepickerProps, inputProps } = useDatepicker({
+    fromDate: new Date(svar),
+    onDateChange: console.log,
   });
 
-  return <DatePicker.Input {...inputProps} label={tekstnøkkel} />;
+  return (
+    <DatePicker {...datepickerProps}>
+      <DatePicker.Input {...inputProps} label={tekstnøkkel} />
+    </DatePicker>
+  );
 }

@@ -7,9 +7,9 @@ export function BooleanSporsmal(props: ISpørsmal) {
   const handleChange = (val: string) => console.log(val);
 
   return (
-    <RadioGroup legend={tekstnøkkel} onChange={handleChange} defaultValue={svar}>
-      <Radio value="10">Ja</Radio>
-      <Radio value="40">Nei</Radio>
+    <RadioGroup legend={tekstnøkkel} onChange={handleChange} value={svar}>
+      <Radio value="true">Ja</Radio>
+      <Radio value="false">Nei</Radio>
     </RadioGroup>
   );
 }

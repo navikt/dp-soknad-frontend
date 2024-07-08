@@ -28,7 +28,7 @@
     "@portabletext/react": "^3.1.0",
     "@remix-run/node": "^2.10.2",
     "@remix-run/react": "^2.10.2",
-    "@remix-run/serve": "^2.9.2",
+    "@remix-run/serve": "^2.10.2",
     "@sanity/client": "^6.20.1",
     "date-fns": "^3.6.0",
     "groq": "^3.49.0",

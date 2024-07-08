@@ -8,7 +8,7 @@ import { ISpørsmal } from "~/types/sporsmal";
 export function BooleanSporsmal(props: ISpørsmal) {
   const { tekstnøkkel, svar } = props;
   const { soknadId } = useTypedLoaderData<typeof loader>();
-  const [currentAnswer, setCurrentAnswer] = useState(svar || undefined);
+  const [currentAnswer, setCurrentAnswer] = useState(svar || "");
   const fetcher = useFetcher();
 
   function onChange(value: string) {

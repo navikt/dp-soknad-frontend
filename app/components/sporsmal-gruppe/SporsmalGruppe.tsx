@@ -36,7 +36,6 @@ export function SporsmalGruppe(props: ISpørsmålGruppe) {
     <div>
       <h2>{navn}</h2>
       <div>
-        <p>Besvarte</p>
         {besvarteSpørsmål.map((spørsmål: ISpørsmal) => {
           return (
             <div key={spørsmål.id} className="my-10">
@@ -46,10 +45,7 @@ export function SporsmalGruppe(props: ISpørsmålGruppe) {
         })}
       </div>
 
-      <div className="my-10">
-        <p>Neste</p>
-        {renderSporsmal(nesteSpørsmål)}
-      </div>
+      <div className="my-10">{renderSporsmal(nesteSpørsmål)}</div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export function DatoSporsmal(props: ISpørsmal) {
 
   return (
     <DatePicker {...datepickerProps}>
-      <DatePicker.Input {...inputProps} label={tekstnøkkel} />
+      <DatePicker.Input name="sporsmal" {...inputProps} label={tekstnøkkel} />
     </DatePicker>
   );
 }

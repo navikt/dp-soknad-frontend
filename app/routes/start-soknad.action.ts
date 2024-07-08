@@ -1,6 +1,6 @@
 import { ActionFunctionArgs, redirect } from "@remix-run/node";
 import { typedjson } from "remix-typedjson";
-import { dpSoknadCreateSoknad } from "~/models/dp-soknad/dpSoknadCreateSoknad.server";
+import { dpSoknadStartSoknad } from "~/models/dp-soknad/dpSoknadStartSoknad.server";
 import { startSoknad } from "~/models/startSoknad.server";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -19,7 +19,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const soknadId = startSoknadResponse.data.soknadId;
 
-  const dpSoknadCreateSoknadResponse = await dpSoknadCreateSoknad(request, soknadId);
+  const dpSoknadCreateSoknadResponse = await dpSoknadStartSoknad(request, soknadId);
 
   if (dpSoknadCreateSoknadResponse.status === "error") {
     return typedjson({ error: dpSoknadCreateSoknadResponse.error, consentGiven: true });

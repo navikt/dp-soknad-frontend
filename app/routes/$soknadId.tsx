@@ -4,19 +4,22 @@ import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import invariant from "tiny-invariant";
 import { SoknadHeader } from "~/components/soknad-header/SoknadHeader";
 import { SporsmalGruppe } from "~/components/sporsmal-gruppe/SporsmalGruppe";
-import { getNesteSporsmal } from "~/models/getNesteSporsmal.server";
+import { hentNesteSporsmal } from "~/models/hentNesteSporsmal.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   invariant(params.soknadId, "params.soknadId er påkrevd");
+  const soknadId = params.soknadId;
 
-  const nesteSporsmal = await getNesteSporsmal(request, params.soknadId);
+  const nesteSporsmal = await hentNesteSporsmal(request, soknadId);
 
   if (nesteSporsmal.status === "error") {
     const { statusCode, statusText } = nesteSporsmal.error;
     throw new Response("Error", { status: statusCode, statusText: statusText });
   }
 
-  return typedjson({ sporsmalGruppe: nesteSporsmal.data });
+  const sporsmalGruppe = nesteSporsmal.data;
+
+  return typedjson({ sporsmalGruppe, soknadId });
 }
 
 export default function SoknadIdPage() {

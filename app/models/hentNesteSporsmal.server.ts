@@ -3,7 +3,7 @@ import { getEnv } from "~/utils/env.utils";
 import { INetworkResponse } from "./networkResponse";
 import { ISpørsmålGruppe } from "~/types/sporsmal";
 
-export async function getNesteSporsmal(
+export async function hentNesteSporsmal(
   request: Request,
   soknadId: string
 ): Promise<INetworkResponse<ISpørsmålGruppe>> {

@@ -6,6 +6,7 @@ export function TekstSporsmal(props: ISpørsmal) {
 
   return (
     <TextField
+      name="sporsmal"
       label={tekstnøkkel}
       value={svar || ""}
       onChange={(e) => console.log(e.target.value)}

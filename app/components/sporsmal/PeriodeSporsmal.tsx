@@ -27,11 +27,11 @@ export function PeriodeSporsmal(props: ISpørsmal) {
   return (
     <>
       <DatePicker {...fraProps}>
-        <DatePicker.Input {...fra} label={tekstnøkkel} />
+        <DatePicker.Input name="sporsmal-fra" {...fra} label={tekstnøkkel} />
       </DatePicker>
 
       <DatePicker {...tilProps}>
-        <DatePicker.Input {...til} label={tekstnøkkel} />
+        <DatePicker.Input name="sporsmal-til" {...til} label={tekstnøkkel} />
       </DatePicker>
     </>
   );

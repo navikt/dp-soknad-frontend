@@ -2,7 +2,7 @@ import { getDPSoknadOboToken } from "~/utils/auth.utils.server";
 import { getEnv } from "~/utils/env.utils";
 import { INetworkResponse } from "../networkResponse";
 
-export async function dpSoknadCreateSoknad(
+export async function dpSoknadStartSoknad(
   request: Request,
   uuid: string
 ): Promise<INetworkResponse<string>> {

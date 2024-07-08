@@ -1,15 +1,19 @@
 import { Radio, RadioGroup } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
+import { useState } from "react";
 import { useTypedLoaderData } from "remix-typedjson";
 import { loader } from "~/routes/$soknadId";
 import { ISpørsmal } from "~/types/sporsmal";
 
 export function BooleanSporsmal(props: ISpørsmal) {
-  const fetcher = useFetcher();
-  const { soknadId } = useTypedLoaderData<typeof loader>();
   const { tekstnøkkel, svar } = props;
+  const { soknadId } = useTypedLoaderData<typeof loader>();
+  const [currentAnswer, setCurrentAnswer] = useState(svar || undefined);
+  const fetcher = useFetcher();
 
   function onChange(value: string) {
+    setCurrentAnswer(value);
+
     const formData = new FormData();
     formData.append("sporsmal", JSON.stringify(props));
     formData.append("svar", value);
@@ -19,7 +23,7 @@ export function BooleanSporsmal(props: ISpørsmal) {
 
   return (
     <fetcher.Form>
-      <RadioGroup legend={tekstnøkkel} onChange={onChange} value={svar || ""}>
+      <RadioGroup legend={tekstnøkkel} onChange={onChange} value={currentAnswer}>
         <Radio value="true">Ja</Radio>
         <Radio value="false">Nei</Radio>
       </RadioGroup>

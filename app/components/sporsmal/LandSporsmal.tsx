@@ -1,15 +1,19 @@
 import { Select } from "@navikt/ds-react";
 import { useFetcher } from "@remix-run/react";
+import { ChangeEvent, useState } from "react";
 import { useTypedLoaderData } from "remix-typedjson";
 import { loader } from "~/routes/$soknadId";
 import { ISpørsmal } from "~/types/sporsmal";
 
 export function LandSporsmal(props: ISpørsmal) {
-  const fetcher = useFetcher();
-  const { soknadId } = useTypedLoaderData<typeof loader>();
   const { tekstnøkkel, svar, gyldigeSvar } = props;
+  const { soknadId } = useTypedLoaderData<typeof loader>();
+  const [currentAnswer, setCurrentAnswer] = useState(svar || "");
+  const fetcher = useFetcher();
 
-  function onChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  function onChange(event: ChangeEvent<HTMLSelectElement>) {
+    setCurrentAnswer(event.target.value);
+
     const formData = new FormData();
     formData.append("sporsmal", JSON.stringify(props));
     formData.append("svar", event.target.value);
@@ -20,7 +24,7 @@ export function LandSporsmal(props: ISpørsmal) {
 
   return (
     <fetcher.Form>
-      <Select name="sporsmal" label={tekstnøkkel} value={svar || ""} onChange={(e) => onChange(e)}>
+      <Select name="sporsmal" label={tekstnøkkel} value={currentAnswer} onChange={onChange}>
         <option value="">Velg land</option>
         {gyldigeSvar.map((svar: string) => (
           <option key={svar} value={svar}>

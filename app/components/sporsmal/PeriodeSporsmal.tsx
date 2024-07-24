@@ -11,8 +11,8 @@ export function PeriodeSporsmal(props: ISpørsmal) {
   const { soknadId } = useTypedLoaderData<typeof loader>();
   const fetcher = useFetcher();
 
-  const [currentFomDate, setcurrentFomDate] = useState<Date | undefined>(undefined);
-  const [currentTomDate, setcurrentTomDate] = useState<Date | undefined>(undefined);
+  const [currentFomDate, setCurrentFomDate] = useState<Date | undefined>(undefined);
+  const [currentTomDate, setCurrentTomDate] = useState<Date | undefined>(undefined);
 
   useEffect(() => {
     if (currentFomDate && currentTomDate) {
@@ -24,21 +24,18 @@ export function PeriodeSporsmal(props: ISpørsmal) {
 
   const { datepickerProps: fraProps, inputProps: fra } = useDatepicker({
     defaultSelected: !svar ? undefined : JSON.parse(svar)["fom"],
-    onDateChange: (date: Date | undefined) => setcurrentFomDate(date),
+    onDateChange: (date: Date | undefined) => setCurrentFomDate(date),
   });
 
   const { datepickerProps: tilProps, inputProps: til } = useDatepicker({
     defaultSelected: !svar ? undefined : JSON.parse(svar)["tom"],
-    onDateChange: (date: Date | undefined) => setcurrentTomDate(date),
+    onDateChange: (date: Date | undefined) => setCurrentTomDate(date),
   });
 
   function formattedDate() {
     if (currentFomDate && currentTomDate) {
       const fom = formatISO(currentFomDate);
       const tom = formatISO(currentTomDate);
-
-      console.log(`🔥 fom :`, fom);
-      console.log(`🔥 tom :`, tom);
 
       return {
         fom,

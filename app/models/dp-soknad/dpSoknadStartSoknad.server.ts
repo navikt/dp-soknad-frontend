@@ -9,6 +9,8 @@ export async function dpSoknadStartSoknad(
   const url = `${getEnv("DP_SOKNAD_URL")}/soknad?søknadId=${uuid}`;
   const onBehalfOfToken = await getDPSoknadOboToken(request);
 
+  console.log(`🔥  uuid :`, uuid);
+
   const response = await fetch(url, {
     method: "POST",
     headers: {

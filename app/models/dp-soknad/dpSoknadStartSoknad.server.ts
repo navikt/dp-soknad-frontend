@@ -18,6 +18,8 @@ export async function dpSoknadStartSoknad(
     },
   });
 
+  console.log(`🔥 dp-soknad response :`, response);
+
   if (!response.ok) {
     return {
       status: "error",

@@ -21,7 +21,7 @@ export async function dpSoknadStartSoknad(
       status: "error",
       error: {
         statusCode: response.status,
-        statusText: "Feil ved oppretting av ny søknad",
+        statusText: "Feil ved oppretting av ny søknad. dp-soknad",
       },
     };
   }

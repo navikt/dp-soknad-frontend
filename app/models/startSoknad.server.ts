@@ -23,7 +23,7 @@ export async function startSoknad(request: Request): Promise<INetworkResponse<IS
       status: "error",
       error: {
         statusCode: response.status,
-        statusText: "Feil ved oppretting av ny søknad",
+        statusText: "Feil ved oppretting av ny søknad: dp-orkestrator",
       },
     };
   }
